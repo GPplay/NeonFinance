@@ -10,34 +10,54 @@
 .svn/
 
 # IntelliJ
+.idea/
 *.iml
 *.ipr
 *.iws
-.idea/
+out/
 
-# Flutter/Dart
-.dart_tool/
+# Visual Studio Code
+.vscode/
+
+# Flutter
+.metadata
 .packages
-.pub-cache/
-.pub/
 /build/
-ios/Flutter/App.framework
-ios/Flutter/flutter_assets/
-ios/Flutter/podish-metadatas.json
-ios/Runner/GeneratedPluginRegistrant.h
-ios/Runner/GeneratedPluginRegistrant.m
-ios/Pods/
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/App.framework
+/ios/Flutter/engine
+/ios/Flutter/flutter_assets
+/ios/Flutter/ephemeral
+/ios/Flutter/.podbox
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/Flutter.podspec
+/ios/Runner/GeneratedPluginRegistrant.h
+/ios/Runner/GeneratedPluginRegistrant.m
+/ios/Runner.xcworkspace
+/ios/Runner.xcodeproj/project.xcworkspace/
+/ios/Runner.xcodeproj/xcuserdata/
+/ios/Flutter/Debug.xcconfig
+/ios/Flutter/Release.xcconfig
+.flutter-plugins
+.flutter-plugins-dependencies
 
-# Android
-.gradle/
-/android/key.properties
-/android/local.properties
-/android/app/src/main/assets/flutter_assets/
-android/app/intermediates/
-android/app/outputs/
-android/app/build/
-android/build/
-android/gradle/
+# Dart
+.dart_tool/
+.pub-cache/
+*.dart.js.deps
+*.dart.js.map
+*.dart.js
+*.unsound.ddc.js
+*.unsound.ddc.js.map
+*.sound.ddc.js
+*.sound.ddc.js.map
+pubspec.lock
 
-# Web
-.dart_tool/build/
+# Generated code
+lib/generated_plugin_registrant.dart
+lib/firebase_options.dart
+
+# Build artifacts
+/build/
+!/build/app/outputs/flutter-apk/app-release.apk
