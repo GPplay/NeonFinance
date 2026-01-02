@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -24,9 +23,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeProvider = a.Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Configuración'),
-      ),
+      appBar: AppBar(title: const Text('Configuración')),
       body: ListView(
         children: [
           SwitchListTile(
@@ -39,18 +36,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ListTile(
             leading: const Icon(Icons.category),
             title: const Text('Administrar Categorías'),
-            subtitle: const Text('Crea, edita y elimina tus categorías de gastos.'),
+            subtitle: const Text(
+              'Crea, edita y elimina tus categorías de gastos.',
+            ),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CategoryManagementScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const CategoryManagementScreen(),
+                ),
               );
             },
           ),
           ListTile(
             leading: const Icon(Icons.delete_forever),
             title: const Text('Eliminar todos los datos'),
-            subtitle: const Text('Esto borrará permanentemente todas tus transacciones.'),
+            subtitle: const Text(
+              'Esto borrará permanentemente todas tus transacciones.',
+            ),
             onTap: () async {
               final confirm = await showDialog<bool>(
                 context: context,
@@ -75,7 +78,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ref.read(transactionProvider.notifier).loadTransactions();
                 if (!mounted) return;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Todos los datos han sido eliminados.')),
+                  const SnackBar(
+                    content: Text('Todos los datos han sido eliminados.'),
+                  ),
                 );
               }
             },
@@ -83,18 +88,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ListTile(
             leading: const Icon(Icons.backup),
             title: const Text('Exportar Backup local'),
-            subtitle: const Text('Guarda un archivo JSON con tus transacciones.'),
+            subtitle: const Text(
+              'Guarda un archivo JSON con tus transacciones.',
+            ),
             onTap: () async {
               final transactions = ref.read(transactionProvider);
               if (transactions.isEmpty) {
-                 if (!mounted) return;
+                if (!mounted) return;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('No hay transacciones para exportar.')),
+                  const SnackBar(
+                    content: Text('No hay transacciones para exportar.'),
+                  ),
                 );
                 return;
               }
 
-              final transactionsJson = jsonEncode(transactions.map((t) => t.toJson()).toList());
+              final transactionsJson = jsonEncode(
+                transactions.map((t) => t.toJson()).toList(),
+              );
               final directory = await getApplicationDocumentsDirectory();
               final path = '${directory.path}/myapp_backup.json';
               final file = File(path);
@@ -107,7 +118,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ListTile(
             leading: const Icon(Icons.restore),
             title: const Text('Importar Backup'),
-            subtitle: const Text('Restaura tus transacciones desde un archivo JSON.'),
+            subtitle: const Text(
+              'Restaura tus transacciones desde un archivo JSON.',
+            ),
             onTap: () async {
               try {
                 FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -119,10 +132,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   File file = File(result.files.single.path!);
                   String content = await file.readAsString();
                   List<dynamic> jsonList = jsonDecode(content);
-                  List<Transaction> transactions = jsonList.map((json) => Transaction.fromJson(json)).toList();
+                  List<Transaction> transactions = jsonList
+                      .map((json) => Transaction.fromJson(json))
+                      .toList();
 
                   final repository = ref.read(localStorageRepositoryProvider);
-                  await repository.wipeData(); // Clear existing data from import
+                  await repository
+                      .wipeData(); // Clear existing data from import
                   for (var transaction in transactions) {
                     await repository.saveTransaction(transaction);
                   }
@@ -131,7 +147,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
                   if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Backup importado con éxito!')),
+                    const SnackBar(
+                      content: Text('Backup importado con éxito!'),
+                    ),
                   );
                 }
               } catch (e) {
@@ -146,4 +164,4 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
     );
   }
-}
+} //as
